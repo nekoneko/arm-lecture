@@ -1,6 +1,6 @@
 CC	= arm-linux-gnueabihf-gcc
 AS	= arm-linux-gnueabihf-as
-CFLAGS	= -O2 -ggdb -Wall
+CFLAGS	= -O2 -ggdb -Wall -mcpu=cortex-a15
 LDFLAGS = -fno-stack-protector
 
 objects	= example2.o multiply.o

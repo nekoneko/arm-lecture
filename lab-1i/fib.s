@@ -24,11 +24,8 @@ fibonacci:
 	mov r5, #2 		@counter for .Loop
 	mov r6, r0 		@.Loop counter upper bound
 
-@optimerize latter
+@optimize latter
 .Loop:
-		@loop until counter greater than upper bound
-	cmp r5, r6
-	bgt	.LoopExit
 
 		@update counter
 	add r5, r5, #1
@@ -45,7 +42,9 @@ fibonacci:
 	eor r4, r3, r4
 	eor r3, r3, r4
 
-	b .Loop
+		@loop until counter greater than upper bound
+	cmp r5, r6
+	ble .Loop
 
 .LoopExit:
 	mov r0, r4

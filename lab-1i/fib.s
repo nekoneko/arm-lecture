@@ -11,7 +11,7 @@
 fibonacci:
 	@ ADD/MODIFY CODE BELOW
 	@ PROLOG
-	push {r3, r4, r5, r6, r7,lr}
+	push {r3, r4, r5, r6, lr}
 
 	cmp r0, #0 		@condition for 0
 	ble .Zero
@@ -37,10 +37,13 @@ fibonacci:
 		@r3 = r3 + r4
 	add r3, r3, r4
 
-		@exchange r3, r4 for correct order
-	mov r7, r3
-	mov r3, r4
-	mov r4, r7
+		@exchange r3, r4 by exclusive or
+		@r3^=r4
+		@r4^=r3
+		@r3^=r4
+	eor r3, r3, r4
+	eor r4, r3, r4
+	eor r3, r3, r4
 
 	b .Loop
 
@@ -57,7 +60,7 @@ fibonacci:
 	b .Exit
 
 .Exit:
-	pop {r3, r4, r5, r6, r7, pc}		@EPILOG
+	pop {r3, r4, r5, r6, pc}		@EPILOG
 
 	@ END CODE MODIFICATION
 

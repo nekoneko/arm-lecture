@@ -46,7 +46,6 @@ fibonacci:
 	cmp r5, r6
 	ble .Loop
 
-.LoopExit:
 	mov r0, r4
 	b .Exit
 

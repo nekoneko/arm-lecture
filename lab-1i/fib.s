@@ -11,7 +11,7 @@
 fibonacci:
 	@ ADD/MODIFY CODE BELOW
 	@ PROLOG
-	push {r3, r4, r5, r6, lr}
+	push {r3, r4, r5, lr}
 
 	cmp r0, #0 		@condition for 0
 	ble .Zero
@@ -56,7 +56,7 @@ fibonacci:
 	b .Exit
 
 .Exit:
-	pop {r3, r4, r5, r6, pc}		@EPILOG
+	pop {r3, r4, r5, pc}		@EPILOG
 
 	@ END CODE MODIFICATION
 

@@ -11,33 +11,55 @@
 fibonacci:
 	@ ADD/MODIFY CODE BELOW
 	@ PROLOG
-	push {r3, r4, r5, lr}
+	push {r3, r4, r5, r6, r7,lr}
 
-	@ R4 = R0 - 0 (update flags)
-	@ if(R0 <= 0) goto .L3 (which returns 0)
+	cmp r0, #0 		@condition for 0
+	ble .Zero
 
-	@ Compare R4 wtih 1
-	@ If R4 == 1 goto .L4 (which returns 1)
+	cmp r0, #1 		@condition for 1
+	beq .One
 
-	@ R0 = R4 - 1
-	@ Recursive call to fibonacci with R4 - 1 as parameter
+	mov r3, #0 		@inital a0 = 0
+	mov r4, #1 		@inital a1 = 1
+	mov r5, #2 		@counter for .Loop
+	mov r6, r0 		@.Loop counter upper bound
 
-	@ R5 = R0
-	@ R0 = R4 - 2
-	@ Recursive call to fibonacci with R4 - 2 as parameter
+@optimerize latter
+.Loop:
+		@loop until counter greater than upper bound
+	cmp r5, r6
+	bgt	.LoopExit
 
-	@ R0 = R5 + R0 (update flags)
+		@update counter
+	add r5, r5, #1
 
-	pop {r3, r4, r5, pc}		@EPILOG
+		@fib: f(n) = f(n-1) + f(n-2)
+		@r3 = r3 + r4
+	add r3, r3, r4
+
+		@exchange r3, r4 for correct order
+	mov r7, r3
+	mov r3, r4
+	mov r4, r7
+
+	b .Loop
+
+.LoopExit:
+	mov r0, r4
+	b .Exit
+
+.Zero:
+	mov r0, #0
+	b .Exit
+
+.One:
+	mov r0, #1
+	b .Exit
+
+.Exit:
+	pop {r3, r4, r5, r6, r7, pc}		@EPILOG
 
 	@ END CODE MODIFICATION
-.L3:
-	mov r0, #0			@ R0 = 0
-	pop {r3, r4, r5, pc}		@ EPILOG
-
-.L4:
-	mov r0, #1			@ R0 = 1
-	pop {r3, r4, r5, pc}		@ EPILOG
 
 	.size fibonacci, .-fibonacci
 	.end

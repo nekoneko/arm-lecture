@@ -21,14 +21,10 @@ fibonacci:
 
 	mov r3, #0 		@inital a0 = 0
 	mov r4, #1 		@inital a1 = 1
-	mov r5, #2 		@counter for .Loop
-	mov r6, r0 		@.Loop counter upper bound
+	subs r5, r0, #2 @counter for .Loop
 
 @optimize latter
 .Loop:
-
-		@update counter
-	add r5, r5, #1
 
 		@fib: f(n) = f(n-1) + f(n-2)
 		@r3 = r3 + r4
@@ -42,9 +38,11 @@ fibonacci:
 	eor r4, r3, r4
 	eor r3, r3, r4
 
+		@update counter
+	subs r5, r5, #1
+
 		@loop until counter greater than upper bound
-	cmp r5, r6
-	ble .Loop
+	bge .Loop
 
 	mov r0, r4
 	b .Exit

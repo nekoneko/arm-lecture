@@ -27,13 +27,13 @@ fibonacci:
 .Loop:
 
 		@fib: f(n) = f(n-1) + f(n-2)
-		@r3 = r3 + r4
+		@r4 = r4 + r0
 	add r4, r4, r0
 
-		@exchange r3, r4 by exclusive or
-		@r3^=r4
-		@r4^=r3
-		@r3^=r4
+		@exchange r4, r0 by exclusive or
+		@r4^=r0
+		@r0^=r4
+		@r4^=r0
 	eor r4, r4, r0
 	eor r0, r0, r4
 	eor r4, r4, r0

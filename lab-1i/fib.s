@@ -13,10 +13,12 @@ fibonacci:
 	@ PROLOG
 
 	cmp r0, #0
+	itt le
 	movle r0, #0
 	bxle lr
 
 	cmp r0, #1
+	it eq
 	bxeq lr
 
 	push {r4, r5, lr}

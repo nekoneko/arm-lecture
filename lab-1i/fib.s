@@ -11,13 +11,15 @@
 fibonacci:
 	@ ADD/MODIFY CODE BELOW
 	@ PROLOG
+
+	cmp r0, #0
+	movle r0, #0
+	bxle lr
+
+	cmp r0, #1
+	bxeq lr
+
 	push {r4, r5, lr}
-
-	cmp r0, #0 		@condition for 0
-	ble .Zero
-
-	cmp r0, #1 		@condition for 1
-	beq .One
 
 	subs r5, r0, #2 @counter for .Loop
 	mov r4, #0 		@inital a0 = 0
@@ -44,17 +46,6 @@ fibonacci:
 		@loop until counter greater than upper bound
 	bge .Loop
 
-	b .Exit
-
-.Zero:
-	mov r0, #0
-	b .Exit
-
-.One:
-	mov r0, #1
-	b .Exit
-
-.Exit:
 	pop {r4, r5, pc}		@EPILOG
 
 	@ END CODE MODIFICATION
